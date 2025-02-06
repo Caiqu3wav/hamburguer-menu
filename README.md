@@ -1,64 +1,51 @@
-# 🍔 Hamburger Menu React
+📌 NavMenu - Componente de Navegação Responsivo
+NavMenu é um componente React para Next.js que fornece uma navegação responsiva com um menu lateral estilizado.
 
-Um componente **menu hambúrguer responsivo** e altamente **personalizável**, feito para projetos **React + Tailwind CSS**. 🔥
+✨ Recursos
+✅ Responsivo - Menu hamburguer no mobile e navegação horizontal no desktop.
+✅ Acessível - Fecha ao pressionar ESC e ao clicar fora.
+✅ Altamente Personalizável - Altere cores de fundo, texto e bordas.
+✅ Fácil de Usar - Apenas passe os itens do menu como props.
 
-## 📦 Instalação
+📦 Instalação
+bash
 
-Você pode instalar via **npm** ou **yarn**:
-
-```sh
-npm install hamburger-menu-lib
+npm install @seu-usuario/navmenu
 # ou
-yarn add hamburger-menu-lib
-
+yarn add @seu-usuario/navmenu
 🚀 Como Usar
-Basta importar e passar os itens do menu, além das cores opcionais:
-
 tsx
-Copiar
-Editar
-import { HamburgerMenu } from "hamburger-menu-lib";
+
+import NavMenu from "@seu-usuario/navmenu";
 
 const menuItems = [
   { title: "Home", path: "/" },
-  { title: "Sobre", path: "#about" },
-  { title: "Projetos", path: "#projects" },
-  { title: "Contato", path: "#contact" },
+  { title: "Sobre", path: "/sobre" },
+  { title: "Contato", path: "/contato" },
 ];
 
 export default function App() {
-  return (
-    <div>
-      <HamburgerMenu 
-        menuItems={menuItems}
-        buttonColor="blue-500"
-        asideColorFrom="gray-900"
-        asideColorTo="gray-600"
-      />
-    </div>
-  );
+  return <NavMenu MenuItems={menuItems} />;
 }
-🎨 Props Disponíveis
-Propriedade	Tipo	Padrão	Descrição
-menuItems	MenuItem[]	[]	Lista de itens do menu (com title e path).
-buttonColor	string	"white"	Define a cor do ícone do botão hamburguer.
-asideColorFrom	string	"orange-400"	Define a cor inicial do gradiente do menu.
-asideColorTo	string	"orange-900"	Define a cor final do gradiente do menu.
-🖌 As cores devem seguir o padrão do Tailwind CSS (gray-900, blue-500, red-700, etc.).
+🎨 Personalização
+Você pode personalizar as cores do aside e do texto usando props:
 
-🛠 Requisitos
-React ^18.0.0
-Tailwind CSS ^3.0.0 ou ^4.0.0
-Next.js (opcional)
-📄 Licença
-Este projeto está licenciado sob a MIT License.
+Prop	Descrição	Valor Padrão
+asideBgColor	Cor de fundo do menu lateral	bg-blue-700
+asideTextColor	Cor do texto do menu lateral	text-white
+asideTextHoverColor	Cor do texto ao passar o mouse	text-red-500
+asideBorderTextColor	Cor da borda inferior dos links	border-red-500
+Exemplo de Personalização
+tsx
 
-Pronto! Agora é só publicar no NPM! 🚀🔥
-Se precisar de mais alguma coisa, só falar. 😃
+<NavMenu
+  MenuItems={menuItems}
+  asideBgColor="bg-gray-800"
+  asideTextColor="text-yellow-400"
+  asideTextHoverColor="text-green-400"
+  asideBorderTextColor="border-blue-500"
+/>
+📜 Licença
+Este projeto é licenciado sob a MIT License.
 
-markdown
-Copiar
-Editar
-
-Isso vai deixar sua biblioteca **bem documentada e fácil de usar**. 🚀🔥  
-Precisa de algo mais?
+Esse README explica claramente como usar sua lib e personalizá-la. Se precisar de ajustes ou quiser adicionar mais detalhes, me avise! 🚀

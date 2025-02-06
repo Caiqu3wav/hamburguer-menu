@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { GiHamburgerMenu } from 'react-icons/gi'
 
@@ -6,55 +7,56 @@ interface MenuItem {
     path: string;
 }
 
-interface Props {
-    menuItems: MenuItem[];
-    buttonColor?: string;
-    colorFrom?: string; 
-    colorTo?: string;
+interface NavProps {
+  MenuItems: MenuItem[];
+  asideBgColor?: string;
+  asideTextColor?: string;
+  asideTextBgColor?: string;
+  asideTextHoverColor?: string;
+  asideBorderTextColor?: string;
 }
 
-export default function HamburgerMenu({
-    menuItems,
-    buttonColor = "white",
-    colorFrom = "blue-400",
-    colorTo = "blue-900", 
-  }: Props) {
+export default function HamburguerMenu({ MenuItems, asideBgColor = "bg-blue-700", asideTextColor = "text-white", 
+  asideBorderTextColor = "border-red-500", 
+  asideTextHoverColor = "text-red-500", }: NavProps) {
     const [isActive, setIsActive] = useState(false);
 
-  const toggleMenu = () => {
-    setIsActive(!isActive);
-  };
+    const toggleMenu = () => setIsActive(!isActive);
 
-  useEffect(() => {
-    const handleEscKeyPress = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isActive) {
-        setIsActive(false);
-      }
-    };
+    useEffect(() => {
+        const handleEscKeyPress = (e: any) => {
+            if (e.keyCode === 27 && isActive) {
+                setIsActive(false);
+            }
+        };
 
-    if (isActive) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+        if (isActive) {
+            document.body.style.setProperty("overflow", "hidden");
+        }else {
+            document.body.style.setProperty("overflow", "auto");
+        }
 
-    document.addEventListener("keydown", handleEscKeyPress);
-    return () => document.removeEventListener("keydown", handleEscKeyPress);
-  }, [isActive]);
+        document.addEventListener("keydown", handleEscKeyPress);
+        
+        return () => {
+            document.removeEventListener("keydown", handleEscKeyPress);
+        };
+    }, [isActive]);
 
   return (
-    <>
-      {/* Botão do Menu */}
-      <button
-        aria-label="Open Menu"
-        onClick={toggleMenu}
-        className={`btn-hamburguer hidden midtw:flex`}
-      >
-        <GiHamburgerMenu size={60} className={`text-${buttonColor}`} />
-      </button>
+    <nav className="">
+        <ul className={`hidden sm:flex  text-xl items-center justify-center gap-8 ${asideTextColor} font-semibold`}>
+           {MenuItems.map(({ title, path }, index) => (
+            <a href={path} key={index}>
+                <li>{title}</li>
+            </a>
+           ))}
+            </ul>
+            <button aria-label="Open Menu" onClick={toggleMenu} className="btn-hamburguer flex sm:hidden">
+                <GiHamburgerMenu size={60} style={{ color: 'black' }} />
+            </button>
 
-      {/* Overlay */}
-      {isActive && (
+{isActive && (
         <div className="z-10 fixed inset-0 transition-opacity">
           <div
             onClick={() => setIsActive(false)}
@@ -64,22 +66,18 @@ export default function HamburgerMenu({
         </div>
       )}
 
-      {/* Menu Lateral */}
       <aside
-        className={`transform bg-gradient-to-b from-${colorFrom} to-${colorTo} 
-        top-0 left-0 w-64 lowtwo2:w-44 lowthreetwo:w-36 text-white font-extrabold 
-        fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
-          isActive ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        {menuItems.map(({ title, path }, index) => (
-          <a href={path} key={index}>
-            <span className="flex items-center p-4 hover:bg-orange-500 dark:hover:bg-red-600 hover:text-black">
-              <span className="border-b-4">{title}</span>
-            </span>
-          </a>
-        ))}
+        className={`transform top-0 left-0 w-64 ${asideTextColor} ${asideBgColor}
+         bg-opacity-50 font-extrabold fixed h-full overflow-auto ease-in-out transition-all duration-300 z-[900]
+          isActive ? "translate-x-0" : "-translate-x-full"}`} > 
+         {MenuItems.map(({ title, path }, index) => (
+    <a href={path} key={index}>
+        <span className={`flex items-center p-4 hover:bg-opacity-80 hover:${asideTextHoverColor}`}>
+          <span className={`border-b-4 ${asideBorderTextColor}`}>{title}</span>
+        </span>
+    </a>
+  ))}
       </aside>
-    </>
-  );
+    </nav>
+  )
 }
