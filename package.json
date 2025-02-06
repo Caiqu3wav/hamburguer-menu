@@ -1,5 +1,5 @@
 {
-  "name": "hamburger-menu",
+  "name": "@caique_wav/hamburger-menu",
   "version": "1.0.0",
   "description": "A customizable hamburger menu component for React.",
   "main": "dist/bundle.cjs.js",
@@ -10,8 +10,12 @@
   ],
   "scripts": {
     "build": "rollup -c rollup.config.mjs",
+    "prepublishOnly": "npm run build",
     "prepare": "npm run build",
     "watch": "rollup -c -w"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "react",
@@ -22,6 +26,7 @@
   "author": "Caique_wav <kaiqueabada@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@caique_wav/hamburger-menu": "file:",
     "hamburger-menu": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -69,7 +69,7 @@ export default function HamburguerMenu({ MenuItems, asideBgColor = "bg-blue-700"
       <aside
         className={`transform top-0 left-0 w-64 ${asideTextColor} ${asideBgColor}
          bg-opacity-50 font-extrabold fixed h-full overflow-auto ease-in-out transition-all duration-300 z-[900]
-          isActive ? "translate-x-0" : "-translate-x-full"}`} > 
+          ${isActive ? "translate-x-0" : "-translate-x-full"}`} > 
          {MenuItems.map(({ title, path }, index) => (
     <a href={path} key={index}>
         <span className={`flex items-center p-4 hover:bg-opacity-80 hover:${asideTextHoverColor}`}>
